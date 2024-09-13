@@ -40,7 +40,7 @@ namespace GateKeeper_wpf
                 }
             }
         }
-
+        
         // Метод проверки логина и пароля
         private bool CheckUserCredentials(string username, string hashedPassword)
         {
