@@ -1,7 +1,9 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GateKeeper_wpf.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="jsonFilePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\Дмитрий\source\repos\GateKeeper_wpf\GateKeeper_wpf\MyLocalDB\MyLocalDB.json</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
