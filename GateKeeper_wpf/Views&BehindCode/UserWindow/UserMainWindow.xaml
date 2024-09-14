@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="UserMainWindow" Height="600" Width="800" Background="White">
     <Grid>
-        <TextBlock Text="user dashboard" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="User dashboard" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
     </Grid>
 </Window>

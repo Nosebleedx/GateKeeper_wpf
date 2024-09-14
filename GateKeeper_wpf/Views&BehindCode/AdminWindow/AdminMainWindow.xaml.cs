@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GateKeeper_wpf.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,11 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
     /// </summary>
     public partial class AdminMainWindow : Window
     {
-        public AdminMainWindow()
+        private User adminUser;
+
+        public AdminMainWindow(User user)
         {
+            this.adminUser = user;
             InitializeComponent();
         }
     }
