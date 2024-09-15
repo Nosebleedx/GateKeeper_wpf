@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using GateKeeper_wpf.Infrasctructure.Helpers;
 using GateKeeper_wpf.Infrasctructure;
 using GateKeeper_wpf.Models;
 using GateKeeper_wpf.Views_BehindCode.AdminWindow;
@@ -23,15 +22,14 @@ namespace GateKeeper_wpf
             UserManager.LoadUsers();
         }
 
-        // Обработчик нажатия кнопки входа
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string username = txtUsername.Text;
-            string password = txtPassword.Password;  // Получение введенного пароля
+            string password = txtPassword.Password;
 
             var user = UserManager.Users.FirstOrDefault(u => u.Username == username);
-
-            if (user != null && user.Password == password)
+            
+            if (user != null && user.Password == password && !user.IsBlocked)
             {
                 failedAttempts = 0;
                 OpenLoggedWindow(user);
@@ -39,12 +37,19 @@ namespace GateKeeper_wpf
             }
             else
             {
-                failedAttempts++; 
-                MessageBox.Show($"Authentication failed. Wrong username or password. Attempts left: {3 - failedAttempts}", "Authentication Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                failedAttempts++;
+                if(user.IsBlocked)
+                {
+                    MessageBox.Show($"Аутентификация провалена. Пользователь заблокирован. Попыток осталось: {3 - failedAttempts}", "Authentication failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    MessageBox.Show($"Аутентификация провалена. Неверное имя пользователя или пароль. Попыток осталось: {3 - failedAttempts}", "Authentication failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
 
                 if (failedAttempts >= 3)
                 {
-                    MessageBox.Show("Too many failed attempts. The application will now close.", "Authentication Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Слишком много попыток. Отказано в доступе, закрытие программы", "Authentication failed", MessageBoxButton.OK, MessageBoxImage.Warning);
                     Application.Current.Shutdown();
                 }
             }
@@ -54,27 +59,26 @@ namespace GateKeeper_wpf
         {
             if (currentUser.Role == 1)
             {
-                MessageBox.Show("Welcome, Admin!", "Authentication", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Добро пожаловать, Админ!", "Authentication", MessageBoxButton.OK, MessageBoxImage.Information);
                 AdminMainWindow adminWindow = new AdminMainWindow(currentUser);
                 adminWindow.Show();
             }
             else
             {
-                MessageBox.Show("Login successful!", "Authentication", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Успешный вход!", "Authentication", MessageBoxButton.OK, MessageBoxImage.Information);
                 UserMainWindow userWindow = new UserMainWindow(currentUser);
                 userWindow.Show();
             }
         }
-        // Метод проверки логина и пароля
         private bool CheckUserCredentials(string username, string hashedPassword)
         {
             var user = UserManager.Users.FirstOrDefault(u => u.Username == username);
             if (user != null && user.Password == hashedPassword)
             {
-                return true;  // Вход успешен
+                return true;
             }
 
-            return false;  // Логин или пароль неверны
+            return false;
         }
     }
 

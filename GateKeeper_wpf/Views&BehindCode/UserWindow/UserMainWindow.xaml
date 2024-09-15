@@ -5,9 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GateKeeper_wpf.Views_BehindCode.UserWindow"
         mc:Ignorable="d"
-        Title="UserMainWindow" Height="600" Width="800" Background="White">
+           Title="AdminMainWindow" MinHeight="600" MinWidth="800">
     <Grid>
-        <TextBlock Text="User dashboard" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <DockPanel>
+            <!-- Верхняя панель с заголовком -->
+            <TextBlock Text="Панель администратора" FontSize="24" TextAlignment="Center" Background="Gray" FontWeight="Bold" 
+                   DockPanel.Dock="Top" Height="42" MinWidth="800" HorizontalAlignment="Stretch"/>
 
+            <!-- Левая панель с кнопками навигации -->
+            <StackPanel DockPanel.Dock="Left" Width="200" Background="LightGray">
+                <Button Content="Сменить пароль" 
+                    Name="btnChangePassword" Height="40" Margin="10" 
+                    Click="btnChangePassword_Click"/>
+                <Button Content="Выйти" 
+                    Name="btnLogout" Height="40" Margin="10" 
+                    Click="btnLogout_Click"/>
+                <Button Content="О программе" Width="100" Height="30"
+                    HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10"
+                    Click="btnAboutButton_Click"/>
+
+            </StackPanel>
+
+            <!-- Область для отображения страниц -->
+            <Frame Name="mainContentFrame" NavigationUIVisibility="Hidden"/>
+        </DockPanel>
     </Grid>
 </Window>

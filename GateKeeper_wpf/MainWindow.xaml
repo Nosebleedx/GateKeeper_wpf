@@ -5,31 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GateKeeper_wpf"
         mc:Ignorable="d"
-        Title="GateKeeper" Height="240" Width="298" Background="White" WindowStartupLocation="CenterScreen">
-    <Grid Background="WhiteSmoke" RenderTransformOrigin="0.5,0.5">
+        Title="GateKeeper" MinHeight="180" MinWidth="315" MaxHeight="220" MaxWidth="360" Background="White" WindowStartupLocation="CenterScreen" Height="186">
+
+    <Grid Background="WhiteSmoke" Width="337">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="247*"/>
-            <ColumnDefinition Width="51*"/>
+            <!-- Оставляем фиксированную боковую панель -->
+            <ColumnDefinition Width="115"/>
+            <!-- Делаем второй столбец адаптивным -->
+            <ColumnDefinition Width="173*"/>
+            <ColumnDefinition Width="49*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform/>
-                <SkewTransform/>
-                <RotateTransform Angle="-0.007"/>
-                <TranslateTransform/>
-            </TransformGroup>
-        </Grid.RenderTransform>
+
         <!-- Label for Username -->
-        <Label Content="Username:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Height="26" Width="66" />
+        <Label Content="Имя пользователя:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Height="26" Width="114"/>
         <!-- TextBox for entering Username -->
-        <TextBox x:Name="txtUsername" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,50,0,0" Height="18" />
+        <TextBox x:Name="txtUsername" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="11,24,0,0" Grid.Column="1" Height="18" Grid.ColumnSpan="2" />
 
         <!-- Label for Password -->
-        <Label Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,90,0,0" Height="26" Width="62" />
+        <Label Content="Пароль:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,70,0,0" Height="26" Width="115"/>
         <!-- PasswordBox for entering Password -->
-        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,120,0,0" Height="18" />
+        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="11,74,0,0" Grid.Column="1" Height="18" Grid.ColumnSpan="2" />
 
         <!-- Button to submit the form -->
-        <Button Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="20,160,0,0" Click="LoginButton_Click" Height="20"/>
+        <Button Content="Войти" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="71,118,0,0" Click="LoginButton_Click" Grid.Column="1" Height="20"/>
     </Grid>
 </Window>

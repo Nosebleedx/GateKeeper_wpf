@@ -1,25 +1,31 @@
-﻿using GateKeeper_wpf.Infrasctructure.Helpers;
+﻿
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using GateKeeper_wpf.Models;
+using System.Linq;
 
 namespace GateKeeper_wpf.Infrasctructure
 {
     public static class UserManager
     {
-        private static string jsonFilePath = "C:\\Users\\Дмитрий\\source\\repos\\GateKeeper_wpf\\GateKeeper_wpf\\MyLocalDB\\MyLocalDB.json"
-            ?? throw new ArgumentNullException("jsonFilePath", "Переменная окружения jsonFilePath не задана.");
-        public static List<User> Users { get; private set; }  // Список пользователей
+        private static string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MyLocalDB", "MyLocalDB.json");
+
+        public static List<User> Users { get; private set; }
 
         static UserManager()
         {
-            LoadUsers();  // Загрузка списка при старте
+            var directoryPath = Path.GetDirectoryName(jsonFilePath);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            LoadUsers();
         }
 
-        // Загрузка пользователей из JSON-файла
         public static void LoadUsers()
         {
             try
@@ -31,32 +37,83 @@ namespace GateKeeper_wpf.Infrasctructure
                 }
                 else
                 {
-                    Users = new List<User>();  // Если файла нет, создаем пустой список
+                    Users = new List<User>
+                    {
+                        new User
+                        {
+                            Username = "admin",
+                            Password = string.Empty, 
+                            Role = 1,
+                            IsBlocked = false
+                        }
+                    };
+
+                    SaveUsers();
+                    System.Diagnostics.Debug.WriteLine("MyLocalDB.json файл был создан с учетной записью администратора.");
                 }
             }
             catch (IOException ex)
             {
-                // Обработка ошибок чтения файла
                 Users = new List<User>();
-                System.Diagnostics.Debug.WriteLine("Error loading users: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Ошибка при загрузке пользователей: " + ex.Message);
             }
         }
 
-        // Добавление нового пользователя в список и обновление файла
         public static void AddUser(User newUser)
         {
-            Users.Add(newUser);  // Добавляем нового пользователя в список
-            SaveUsers();  // Сохраняем изменения в файл
+            Users.Add(newUser); 
+            SaveUsers();
         }
 
-        private static void AddNewUser(string username, string password, int role)
+        public static bool ChangePassword(string username, string newPassword)
         {
-            var hashedPassword = AuthHelper.HashPassword(password);  // Хеширование пароля
-            var newUser = new User { Username = username, Password = hashedPassword, Role = role };
-            AddUser(newUser);  // Добавляем нового пользователя
-            MessageBox.Show("User added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            var user = Users.FirstOrDefault(u => u.Username == username);
+            user.Password = newPassword;
+            SaveUsers();
+            return true;
         }
 
+
+        public static void UpdateUser(string username, string newPassword)
+        {
+            var user = Users.FirstOrDefault(u => u.Username == username);
+            if (user != null)
+            {
+                user.Password = newPassword;
+                SaveUsers();  // Сохраняем изменения
+            }
+        }
+
+
+        public static void BlockUser(string username)
+        {
+            var user = Users.FirstOrDefault(u => u.Username == username);
+            if (user != null)
+            {
+                user.IsBlocked = true;
+                SaveUsers();  // Сохраняем изменения
+            }
+        }
+
+        public static void UnblockUser(string username)
+        {
+            var user = Users.FirstOrDefault(u => u.Username == username);
+            if (user != null)
+            {
+                user.IsBlocked = false;
+                SaveUsers();  // Сохраняем изменения
+            }
+        }
+
+        public static void DeleteUser(string username)
+        {
+            var user = Users.FirstOrDefault(u => u.Username == username);
+            if (user != null)
+            {
+                Users.Remove(user);
+                SaveUsers();  // Сохраняем изменения
+            }
+        }
         // Сохранение изменений в JSON-файл
         public static void SaveUsers()
         {

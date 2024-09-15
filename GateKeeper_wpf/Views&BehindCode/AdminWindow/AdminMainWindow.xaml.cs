@@ -27,5 +27,34 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
             this.adminUser = user;
             InitializeComponent();
         }
+
+        private void btnUserList_Click(object sender, RoutedEventArgs e)
+        {
+            mainContentFrame.Navigate(new UserManagementPage());  // Это страница списка пользователей
+        }
+
+        private void btnAddUser_Click(object sender, RoutedEventArgs e)
+        {
+            mainContentFrame.Navigate(new AddUserPage());  // Это страница добавления пользователя
+        }
+
+        private void btnChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            mainContentFrame.Navigate(new ChangePasswordPage(adminUser));  // Это страница смены пароля
+        }
+
+        private void btnAboutButton_Click(object obj, RoutedEventArgs e)
+        {
+            mainContentFrame.Navigate(new AboutWindow());
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            
+            MainWindow loginWindow = new MainWindow();
+            loginWindow.Show();
+            GetWindow(this).Close();
+        }
+
     }
 }
