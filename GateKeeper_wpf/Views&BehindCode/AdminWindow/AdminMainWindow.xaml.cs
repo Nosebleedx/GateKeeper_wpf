@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GateKeeper_wpf.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,41 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
     /// </summary>
     public partial class AdminMainWindow : Window
     {
-        public AdminMainWindow()
+        private User adminUser;
+
+        public AdminMainWindow(User user)
         {
+            this.adminUser = user;
             InitializeComponent();
         }
+
+        private void btnUserList_Click(object sender, RoutedEventArgs e)
+        {
+            mainContentFrame.Navigate(new UserManagementPage());  // Это страница списка пользователей
+        }
+
+        private void btnAddUser_Click(object sender, RoutedEventArgs e)
+        {
+            mainContentFrame.Navigate(new AddUserPage());  // Это страница добавления пользователя
+        }
+
+        private void btnChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            mainContentFrame.Navigate(new ChangePasswordPage(adminUser));  // Это страница смены пароля
+        }
+
+        private void btnAboutButton_Click(object obj, RoutedEventArgs e)
+        {
+            mainContentFrame.Navigate(new AboutWindow());
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            
+            MainWindow loginWindow = new MainWindow();
+            loginWindow.Show();
+            GetWindow(this).Close();
+        }
+
     }
 }

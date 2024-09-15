@@ -1,0 +1,85 @@
+﻿<Page x:Class="GateKeeper_wpf.Views_BehindCode.AdminWindow.UserManagementPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GateKeeper_wpf.Views_BehindCode.AdminWindow"
+      mc:Ignorable="d" 
+      
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserManagementPage">
+
+    <Grid Background="Azure" Margin="0,0,0,-90">
+        <!-- Установка двух колонок с равным распределением -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <!-- 50% ширины -->
+            <ColumnDefinition Width="*" />
+            <!-- 50% ширины -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Заголовок, растягивающийся на всю ширину -->
+        <TextBlock Text="Управление пользователями" FontSize="24" TextAlignment="Center" 
+                   FontWeight="Bold" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="50"/>
+
+        <!-- Список пользователей в первой колонке -->
+        <ListBox x:Name="lstUsers" BorderBrush="Black" VerticalAlignment="Top" 
+                 Margin="10,55,10,0" SelectionChanged="lstUsers_SelectionChanged"
+                 Grid.Column="0" Height="440" />
+        <!-- Левый столбец -->
+
+        <!-- Блок с информацией о выбранном пользователе во второй колонке -->
+        <StackPanel VerticalAlignment="Top" Margin="10,55,10,0" Grid.Column="1" Height="481">
+            <!-- Правый столбец -->
+
+            <!-- Информация о пользователе -->
+            <TextBlock Text="Информация о пользователе"  Grid.ColumnSpan="2" 
+                           FontSize="20" FontWeight="Bold" Padding="10"/>
+
+            <TextBlock Text="Имя пользователя:"  FontSize="18" FontWeight="Bold" Margin="5"/>
+            <TextBlock x:Name="txtUsername"   Margin="5"/>
+
+            <TextBlock Text="Статус:"  FontSize="18" FontWeight="Bold" Margin="5"/>
+            <TextBlock x:Name="txtStatus"   Margin="5"/>
+            <!-- Блок с информацией о паролях и ограничениях в виде сетки -->
+            <Grid Margin="10, 0,10,0" Height="156">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Заголовок -->
+                <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Ограничения на пароль:" 
+               FontSize="18" FontWeight="Bold" Margin="5"/>
+
+                <!-- Минимальная длина пароля -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Мин. длина пароля:" 
+               FontSize="16" Margin="5" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtMinPasswordLength" Width="50" Margin="5"/>
+
+                <!-- Чекбоксы с требованиями к паролю, два в строку -->
+                <CheckBox Grid.Row="2" Grid.Column="0" x:Name="chkUppercase" Content="Требовать заглавные буквы" Margin="5"/>
+                <CheckBox Grid.Row="2" Grid.Column="1" x:Name="chkDigits" Content="Требовать цифры" Margin="5"/>
+                <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chkPunctuation" Content="Требовать знаки препинания" Margin="5"/>
+                <CheckBox Grid.Row="3" Grid.Column="1" x:Name="chkRepeatingChars" Content="Запретить повторяющиеся символы" Margin="5"/>
+
+                <!-- Кнопка сохранения -->
+                <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Сохранить ограничения" Click="btnSavePasswordRestrictions_Click" 
+            HorizontalAlignment="Left" Margin="111,30,0,-20"/>
+            </Grid>
+
+
+            <!-- Кнопки управления -->
+            <Button Content="Заблокировать" x:Name="btnBlock" Grid.Row="3" Margin="5" Padding="10" Click="btnBlock_Click"/>
+            <Button Content="Разблокировать" x:Name="btnUnblock" Grid.Row="4" Margin="5" Padding="10" Click="btnUnblock_Click"/>
+            <Button Content="Удалить" x:Name="btnDelete" Grid.Row="5"  Margin="5" Padding="10" Click="btnDelete_Click"/>
+
+        </StackPanel>
+    </Grid>
+</Page>
