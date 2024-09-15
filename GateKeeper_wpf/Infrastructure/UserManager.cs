@@ -41,7 +41,7 @@ namespace GateKeeper_wpf.Infrasctructure
                     {
                         new User
                         {
-                            Username = "admin",
+                            Username = "ADMIN",
                             Password = string.Empty, 
                             Role = 1,
                             IsBlocked = false

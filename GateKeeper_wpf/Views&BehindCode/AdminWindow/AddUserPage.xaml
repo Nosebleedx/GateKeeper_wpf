@@ -24,7 +24,7 @@
 
         <!-- Требования к паролю -->
         <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="185,250,0,0">
-            <TextBlock x:Name="lblLength" Text="Минимальная длина: 0 символов" Foreground="Gray"/>
+            <TextBlock x:Name="lblLength" Text="Минимальная длина: 8 символов" Foreground="Gray"/>
             <TextBlock x:Name="lblUppercase" Text="Строчные и прописные буквы" Foreground="Gray"/>
             <TextBlock x:Name="lblRepeats" Text="Нет повторяющихся символов" Foreground="Gray"/>
         </StackPanel>
