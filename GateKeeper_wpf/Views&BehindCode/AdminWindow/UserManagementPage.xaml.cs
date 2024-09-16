@@ -11,6 +11,7 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
         {
             InitializeComponent();
             LoadUsers(); // Загружаем пользователей при загрузке страницы
+            
         }
 
         // Загрузка списка пользователей в ListBox
@@ -30,6 +31,7 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
                 {
                     // Обновляем отображаемую информацию о пользователе
                     txtUsername.Text = selectedUser.Username;
+                    txtMinPwdLenght.Text = selectedUser.MinPasswordLength.ToString();
                     txtStatus.Text = selectedUser.IsBlocked ? "Заблокирован" : "Активен";
 
                     // Включаем или отключаем кнопки в зависимости от статуса пользователя
@@ -74,17 +76,22 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
         private void btnSavePasswordRestrictions_Click(object sender, RoutedEventArgs e)
         {
             var selectedUser = UserManager.Users.FirstOrDefault(u => u.Username == lstUsers.SelectedItem.ToString());
-            if (selectedUser != null)
+            try
             {
-                // Пример сохранения параметров минимальной длины и других требований
-                selectedUser.MinPasswordLength = int.Parse(txtMinPasswordLength.Text);
-                selectedUser.RequireUppercase = chkUppercase.IsChecked ?? false;
-                selectedUser.RequireDigits = chkDigits.IsChecked ?? false;
-
-                // Обновляем данные пользователя и сохраняем их в файл
-                UserManager.SaveUsers();
-                MessageBox.Show("Ограничения пароля сохранены.");
+                if (selectedUser != null)
+                {
+                    selectedUser.MinPasswordLength = int.Parse(txtMinPasswordLength.Text);
+                    UserManager.UpdateUser(selectedUser.Username, int.Parse(txtMinPasswordLength.Text));
+                    UpdateUserInfo();
+                    UserManager.SaveUsers();
+                    MessageBox.Show("Ограничения пароля сохранены.");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка выбранный пользователь не найден");
+                }
             }
+            catch {  }
         }
 
         // Удаление пользователя

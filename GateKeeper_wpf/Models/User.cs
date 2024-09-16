@@ -15,10 +15,6 @@ namespace GateKeeper_wpf.Models
 
         public int MinPasswordLength { get; set; } = 8;  // Минимальная длина по умолчанию
 
-        public bool RequireUppercase { get; set; } = true;  // Требование для верхнего регистра по умолчанию
-
-        public bool RequireDigits { get; set; } = true;  // Требование для цифр по умолчанию
-
         public bool IsBlocked { get; set; } = false;
 
         public User()
