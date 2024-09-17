@@ -46,9 +46,6 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
                 return;
             }
 
-            bool requireUppercase = chkUppercase.IsChecked == true;
-            bool requireDigits = chkDigits.IsChecked == true;
-
             User newUser = new User
             {
                 Username = username,
@@ -56,8 +53,6 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
                 IsBlocked = false,
                 Role = 0,
                 MinPasswordLength = GetMinPasswordLength(),
-                RequireUppercase = requireUppercase,
-                RequireDigits = requireDigits,
             };
 
             UserManager.AddUser(newUser);
@@ -68,12 +63,10 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
         private bool IsPasswordValid(string password)
         {
            
-            bool requireUppercase = chkUppercase.IsChecked == true;
-            bool requireDigits = chkDigits.IsChecked == true;
 
             bool lengthValid = password.Length >= GetMinPasswordLength();
-            bool uppercaseValid = !requireUppercase || Regex.IsMatch(password, @"^(?=.*[A-Z]).+$");
-            bool digitsValid = !requireDigits || Regex.IsMatch(password, @"^(?=.*\d).+$");
+            bool uppercaseValid = Regex.IsMatch(password, @"^(?=.*[A-Z]).+$");
+            bool digitsValid =  Regex.IsMatch(password, @"^(?=.*\d).+$");
 
             return lengthValid && uppercaseValid && digitsValid;
         }

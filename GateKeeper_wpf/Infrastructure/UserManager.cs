@@ -83,6 +83,15 @@ namespace GateKeeper_wpf.Infrasctructure
                 SaveUsers();  // Сохраняем изменения
             }
         }
+        public static void UpdateUser(string username, int minPwdLenght)
+        {
+            var user = Users.FirstOrDefault(u => u.Username == username);
+            if (user != null)
+            {
+                user.MinPasswordLength = minPwdLenght;
+                SaveUsers();  // Сохраняем изменения
+            }
+        }
 
 
         public static void BlockUser(string username)

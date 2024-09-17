@@ -10,16 +10,15 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
         public UserManagementPage()
         {
             InitializeComponent();
-            LoadUsers(); // Загружаем пользователей при загрузке страницы
+            LoadUsers();
         }
 
-        // Загрузка списка пользователей в ListBox
         private void LoadUsers()
         {
             lstUsers.ItemsSource = UserManager.Users.Select(u => u.Username).ToList();
         }
 
-        // Обработчик изменения выбора в списке пользователей
+
         private void lstUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstUsers.SelectedItem != null)
@@ -28,18 +27,17 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
 
                 if (selectedUser != null)
                 {
-                    // Обновляем отображаемую информацию о пользователе
                     txtUsername.Text = selectedUser.Username;
+                    txtMinPwdLenght.Text = selectedUser.MinPasswordLength.ToString();
                     txtStatus.Text = selectedUser.IsBlocked ? "Заблокирован" : "Активен";
 
-                    // Включаем или отключаем кнопки в зависимости от статуса пользователя
                     btnBlock.IsEnabled = !selectedUser.IsBlocked;
                     btnUnblock.IsEnabled = selectedUser.IsBlocked;
                 }
             }
         }
 
-        // Блокировка пользователя
+
         private void btnBlock_Click(object sender, RoutedEventArgs e)
         {
             
@@ -47,7 +45,7 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
             if (selectedUser != null && selectedUser.Role != 1)
             {
                 UserManager.BlockUser(selectedUser.Username);
-                // Обновляем интерфейс
+
                 UpdateUserInfo();
                 MessageBox.Show("Пользователь заблокирован.");
             }
@@ -58,45 +56,46 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
             }
         }
 
-        // Разблокировка пользователя
         private void btnUnblock_Click(object sender, RoutedEventArgs e)
         {
             var selectedUser = UserManager.Users.FirstOrDefault(u => u.Username == lstUsers.SelectedItem.ToString());
             if (selectedUser != null)
             {
                 UserManager.UnblockUser(selectedUser.Username);
-                // Обновляем интерфейс
                 UpdateUserInfo();
                 MessageBox.Show("Пользователь разблокирован.");
             }
         }
-        // Сохранение ограничений пароля для выбранного пользователя
+
         private void btnSavePasswordRestrictions_Click(object sender, RoutedEventArgs e)
         {
             var selectedUser = UserManager.Users.FirstOrDefault(u => u.Username == lstUsers.SelectedItem.ToString());
-            if (selectedUser != null)
+            try
             {
-                // Пример сохранения параметров минимальной длины и других требований
-                selectedUser.MinPasswordLength = int.Parse(txtMinPasswordLength.Text);
-                selectedUser.RequireUppercase = chkUppercase.IsChecked ?? false;
-                selectedUser.RequireDigits = chkDigits.IsChecked ?? false;
-
-                // Обновляем данные пользователя и сохраняем их в файл
-                UserManager.SaveUsers();
-                MessageBox.Show("Ограничения пароля сохранены.");
+                if (selectedUser != null)
+                {
+                    selectedUser.MinPasswordLength = int.Parse(txtMinPasswordLength.Text);
+                    UserManager.UpdateUser(selectedUser.Username, int.Parse(txtMinPasswordLength.Text));
+                    UpdateUserInfo();
+                    UserManager.SaveUsers();
+                    MessageBox.Show("Ограничения пароля сохранены.");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка выбранный пользователь не найден");
+                }
             }
+            catch {  }
         }
 
-        // Удаление пользователя
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             var selectedUser = UserManager.Users.FirstOrDefault(u => u.Username == lstUsers.SelectedItem.ToString());
             if (selectedUser != null && selectedUser.Role != 1)
             {
-                // Удаляем пользователя из коллекции
+
                 UserManager.DeleteUser(selectedUser.Username);
 
-                // Обновляем список пользователей
                 LoadUsers();
                 MessageBox.Show("Пользователь удален.");
             }
@@ -106,10 +105,8 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
             }
         }
 
-        // Обновление информации о пользователе
         private void UpdateUserInfo()
         {
-            // Перезагружаем отображаемую информацию о пользователе
             lstUsers_SelectionChanged(null, null);
         }
     }

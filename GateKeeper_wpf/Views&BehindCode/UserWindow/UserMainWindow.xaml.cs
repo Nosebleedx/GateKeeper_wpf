@@ -32,7 +32,7 @@ namespace GateKeeper_wpf.Views_BehindCode.UserWindow
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            mainContentFrame.Navigate(new ChangePasswordPage(defaultUser));  // Это страница смены пароля
+            mainContentFrame.Navigate(new ChangePasswordPage(defaultUser));
         }
 
         private void btnAboutButton_Click(object obj, RoutedEventArgs e)
@@ -42,7 +42,6 @@ namespace GateKeeper_wpf.Views_BehindCode.UserWindow
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-
             MainWindow loginWindow = new MainWindow();
             loginWindow.Show();
             GetWindow(this).Close();

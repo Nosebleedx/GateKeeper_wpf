@@ -29,12 +29,6 @@
             <TextBlock x:Name="lblRepeats" Text="Нет повторяющихся символов" Foreground="Gray"/>
         </StackPanel>
 
-        <!-- Чекбоксы для параметров пароля -->
-        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="500,250,0,0">
-            <CheckBox x:Name="chkUppercase" Content="Требовать заглавные буквы" IsChecked="True" />
-            <CheckBox x:Name="chkDigits" Content="Требовать цифры" IsChecked="True" />
-        </StackPanel>
-
         <!-- Кнопка добавления пользователя -->
         <Button Content="Добавить" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,100,50" Click="btnAddUser_Click"/>
     </Grid>

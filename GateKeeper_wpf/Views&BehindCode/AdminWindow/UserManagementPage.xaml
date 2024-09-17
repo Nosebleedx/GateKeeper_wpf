@@ -35,14 +35,16 @@
             <!-- Информация о пользователе -->
             <TextBlock Text="Информация о пользователе"  Grid.ColumnSpan="2" 
                            FontSize="20" FontWeight="Bold" Padding="10"/>
-
+            
             <TextBlock Text="Имя пользователя:"  FontSize="18" FontWeight="Bold" Margin="5"/>
             <TextBlock x:Name="txtUsername"   Margin="5"/>
 
             <TextBlock Text="Статус:"  FontSize="18" FontWeight="Bold" Margin="5"/>
             <TextBlock x:Name="txtStatus"   Margin="5"/>
+            <TextBlock Text="Мин. длина пароля:" FontSize="18" FontWeight="Bold" Margin="5"/>
+            <TextBlock x:Name="txtMinPwdLenght" Margin="5" />
             <!-- Блок с информацией о паролях и ограничениях в виде сетки -->
-            <Grid Margin="10, 0,10,0" Height="156">
+            <Grid Margin="10, 0,10,0" Height="95">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -64,14 +66,11 @@
                 <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtMinPasswordLength" Width="50" Margin="5"/>
 
                 <!-- Чекбоксы с требованиями к паролю, два в строку -->
-                <CheckBox Grid.Row="2" Grid.Column="0" x:Name="chkUppercase" Content="Требовать заглавные буквы" Margin="5"/>
-                <CheckBox Grid.Row="2" Grid.Column="1" x:Name="chkDigits" Content="Требовать цифры" Margin="5"/>
-                <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chkPunctuation" Content="Требовать знаки препинания" Margin="5"/>
-                <CheckBox Grid.Row="3" Grid.Column="1" x:Name="chkRepeatingChars" Content="Запретить повторяющиеся символы" Margin="5"/>
+               
 
                 <!-- Кнопка сохранения -->
                 <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Сохранить ограничения" Click="btnSavePasswordRestrictions_Click" 
-            HorizontalAlignment="Left" Margin="111,30,0,-20"/>
+            HorizontalAlignment="Left" Margin="112,5,0,5"/>
             </Grid>
 
 
