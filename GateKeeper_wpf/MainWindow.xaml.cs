@@ -13,7 +13,7 @@ namespace GateKeeper_wpf
     public partial class MainWindow : Window
     {
 
-        private int failedAttempts = 0;  // Счётчик неудачных попыток
+        private int failedAttempts = 0; 
 
 
         public MainWindow()

@@ -22,7 +22,6 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
         {
             var password = txtNewPassword.Password;
 
-            // Обновляем требования в зависимости от текущего пользователя
             lblLength.Visibility = Visibility.Visible;
             lblLength.Foreground = password.Length >= _currentUser.MinPasswordLength ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
 
@@ -41,28 +40,24 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
             string newPassword = txtNewPassword.Password;
             string confirmPassword = txtConfirmPassword.Password;
 
-            // Проверка старого пароля
             if (_currentUser.Password != oldPassword)
             {
                 MessageBox.Show("Неправильный старый пароль.");
                 return;
             }
 
-            // Проверка нового пароля
             if (!IsPasswordValid(newPassword))
             {
                 MessageBox.Show("Новый пароль не соответствует требованиям.");
                 return;
             }
 
-            // Проверка совпадения паролей
             if (newPassword != confirmPassword)
             {
                 MessageBox.Show("Пароли не совпадают.");
                 return;
             }
 
-            // Обновление пароля
             _currentUser.Password = newPassword;
             UserManager.SaveUsers();
             MessageBox.Show("Пароль успешно изменен.");

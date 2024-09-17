@@ -30,17 +30,17 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
 
         private void btnUserList_Click(object sender, RoutedEventArgs e)
         {
-            mainContentFrame.Navigate(new UserManagementPage());  // Это страница списка пользователей
+            mainContentFrame.Navigate(new UserManagementPage());
         }
 
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {
-            mainContentFrame.Navigate(new AddUserPage());  // Это страница добавления пользователя
+            mainContentFrame.Navigate(new AddUserPage()); 
         }
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            mainContentFrame.Navigate(new ChangePasswordPage(adminUser));  // Это страница смены пароля
+            mainContentFrame.Navigate(new ChangePasswordPage(adminUser));
         }
 
         private void btnAboutButton_Click(object obj, RoutedEventArgs e)
