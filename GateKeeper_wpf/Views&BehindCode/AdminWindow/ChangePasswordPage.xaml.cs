@@ -29,7 +29,7 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
             lblUppercase.Foreground = Regex.IsMatch(password, @"^(?=.*[A-Z]).+$") ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
             lblDigits.Visibility = Visibility.Visible;
             lblDigits.Foreground = Regex.IsMatch(password, @"^(?=.*\d).+$") ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
-            
+
             lblRepeats.Visibility = Visibility.Visible;
             lblRepeats.Foreground = password.Distinct().Count() == password.Length ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
         }
@@ -66,8 +66,8 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
         private bool IsPasswordValid(string password)
         {
             return password.Length >= _currentUser.MinPasswordLength
-                   &&  Regex.IsMatch(password, @"^(?=.*[A-Z]).+$")
-                   &&  Regex.IsMatch(password, @"^(?=.*\d).+$")
+                   && Regex.IsMatch(password, @"^(?=.*[A-Z]).+$")
+                   && Regex.IsMatch(password, @"^(?=.*\d).+$")
                    && password.Distinct().Count() == password.Length;
         }
     }

@@ -1,6 +1,5 @@
 ﻿using GateKeeper_wpf.Infrasctructure;
 using GateKeeper_wpf.Models;
-using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -62,11 +61,11 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
 
         private bool IsPasswordValid(string password)
         {
-           
+
 
             bool lengthValid = password.Length >= GetMinPasswordLength();
             bool uppercaseValid = Regex.IsMatch(password, @"^(?=.*[A-Z]).+$");
-            bool digitsValid =  Regex.IsMatch(password, @"^(?=.*\d).+$");
+            bool digitsValid = Regex.IsMatch(password, @"^(?=.*\d).+$");
 
             return lengthValid && uppercaseValid && digitsValid;
         }
