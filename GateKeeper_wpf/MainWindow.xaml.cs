@@ -1,19 +1,16 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows;
-using GateKeeper_wpf.Infrasctructure;
+﻿using GateKeeper_wpf.Infrasctructure;
 using GateKeeper_wpf.Models;
 using GateKeeper_wpf.Views_BehindCode.AdminWindow;
 using GateKeeper_wpf.Views_BehindCode.UserWindow;
+using System.Linq;
+using System.Windows;
 
 namespace GateKeeper_wpf
 {
     public partial class MainWindow : Window
     {
 
-        private int failedAttempts = 0; 
+        private int failedAttempts = 0;
 
 
         public MainWindow()
@@ -28,7 +25,7 @@ namespace GateKeeper_wpf
             string password = txtPassword.Password;
 
             var user = UserManager.Users.FirstOrDefault(u => u.Username == username);
-            
+
             if (user != null && user.Password == password && !user.IsBlocked)
             {
                 failedAttempts = 0;
@@ -38,7 +35,7 @@ namespace GateKeeper_wpf
             else
             {
                 failedAttempts++;
-                if(user.IsBlocked)
+                if (user.IsBlocked)
                 {
                     MessageBox.Show($"Аутентификация провалена. Пользователь заблокирован. Попыток осталось: {3 - failedAttempts}", "Authentication failed", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
@@ -82,5 +79,5 @@ namespace GateKeeper_wpf
         }
     }
 
-    
+
 }

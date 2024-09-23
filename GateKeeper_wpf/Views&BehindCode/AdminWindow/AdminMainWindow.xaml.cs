@@ -1,17 +1,5 @@
 ﻿using GateKeeper_wpf.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
 {
@@ -35,7 +23,7 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
 
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {
-            mainContentFrame.Navigate(new AddUserPage()); 
+            mainContentFrame.Navigate(new AddUserPage());
         }
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
@@ -50,7 +38,7 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            
+
             MainWindow loginWindow = new MainWindow();
             loginWindow.Show();
             GetWindow(this).Close();

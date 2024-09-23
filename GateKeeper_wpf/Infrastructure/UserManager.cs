@@ -1,10 +1,9 @@
 ﻿
+using GateKeeper_wpf.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows;
-using GateKeeper_wpf.Models;
 using System.Linq;
 
 namespace GateKeeper_wpf.Infrasctructure
@@ -42,7 +41,7 @@ namespace GateKeeper_wpf.Infrasctructure
                         new User
                         {
                             Username = "ADMIN",
-                            Password = string.Empty, 
+                            Password = string.Empty,
                             Role = 1,
                             IsBlocked = false
                         }
@@ -61,7 +60,7 @@ namespace GateKeeper_wpf.Infrasctructure
 
         public static void AddUser(User newUser)
         {
-            Users.Add(newUser); 
+            Users.Add(newUser);
             SaveUsers();
         }
 

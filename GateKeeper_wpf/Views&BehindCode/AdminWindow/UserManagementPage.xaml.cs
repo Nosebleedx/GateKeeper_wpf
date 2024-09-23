@@ -40,7 +40,7 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
 
         private void btnBlock_Click(object sender, RoutedEventArgs e)
         {
-            
+
             var selectedUser = UserManager.Users.FirstOrDefault(u => u.Username == lstUsers.SelectedItem.ToString());
             if (selectedUser != null && selectedUser.Role != 1)
             {
@@ -85,7 +85,7 @@ namespace GateKeeper_wpf.Views_BehindCode.AdminWindow
                     MessageBox.Show("Ошибка выбранный пользователь не найден");
                 }
             }
-            catch {  }
+            catch { }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
